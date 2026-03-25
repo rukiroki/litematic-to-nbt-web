@@ -218,8 +218,8 @@ function App() {
 
         {/* Stats Bar */}
         {files.length > 0 && (
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-4">
               <span className="text-sm text-slate-400">
                 {files.length} 个文件
               </span>
@@ -236,7 +236,7 @@ function App() {
                 </Badge>
               )}
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex justify-end items-center gap-2">
               {successfulConversions.length > 0 && (
                 <Button
                   variant="outline"
@@ -274,56 +274,58 @@ function App() {
               )}
             >
               <CardContent className="p-4">
-                <div className="flex items-center gap-4">
-                  {/* Icon */}
-                  <div className={cn(
-                    "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
-                    file.result.success 
-                      ? "bg-emerald-500/10" 
-                      : "bg-red-500/10"
-                  )}>
-                    {file.result.success ? (
-                      <FileJson className="w-6 h-6 text-emerald-400" />
-                    ) : (
-                      <XCircle className="w-6 h-6 text-red-400" />
-                    )}
-                  </div>
-
-                  {/* File Info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-medium truncate text-gray-300">
-                        {file.originalName}
-                      </span>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                  <div className="flex items-center gap-4 sm:flex-1 sm:min-w-0">
+                    {/* Icon */}
+                    <div className={cn(
+                      "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
+                      file.result.success 
+                        ? "bg-emerald-500/10" 
+                        : "bg-red-500/10"
+                    )}>
                       {file.result.success ? (
-                        <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <FileJson className="w-6 h-6 text-emerald-400" />
                       ) : (
-                        <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                        <XCircle className="w-6 h-6 text-red-400" />
                       )}
                     </div>
-                    
-                    {file.result.success && file.result.info ? (
-                      <div className="flex items-center gap-3 text-xs text-slate-400">
-                        <span className="flex items-center gap-1">
-                          <Box className="w-3 h-3" />
-                          {file.result.info.size.join(' × ')}
+
+                    {/* File Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-medium text-gray-300 break-words">
+                          {file.originalName}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <Blocks className="w-3 h-3" />
-                          {file.result.info.blockCount.toLocaleString()} 个方块
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Box className="w-3 h-3" />
-                          {file.result.info.paletteSize} 种
-                        </span>
+                        {file.result.success ? (
+                          <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        ) : (
+                          <XCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                        )}
                       </div>
-                    ) : file.result.error ? (
-                      <p className="text-xs text-red-400">{file.result.error}</p>
-                    ) : null}
+                      
+                      {file.result.success && file.result.info ? (
+                        <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                          <span className="flex items-center gap-1">
+                            <Box className="w-3 h-3" />
+                            {file.result.info.size.join(' × ')}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Blocks className="w-3 h-3" />
+                            {file.result.info.blockCount.toLocaleString()} 个方块
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Box className="w-3 h-3" />
+                            {file.result.info.paletteSize} 种
+                          </span>
+                        </div>
+                      ) : file.result.error ? (
+                        <p className="text-xs text-red-400">{file.result.error}</p>
+                      ) : null}
+                    </div>
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 ml-auto">
                     {file.result.success && file.result.data && (
                       <Button
                         size="sm"
