@@ -89,6 +89,11 @@ function App() {
     setFiles([]);
   }, []);
 
+  // Handle file input button click
+  const handleFileInputClick = useCallback(() => {
+    document.getElementById('file-input')?.click();
+  }, []);
+
   // Drag handlers
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -201,6 +206,7 @@ function App() {
                   variant="outline" 
                   className="border-slate-600 bg-slate-200 hover:bg-slate-700"
                   disabled={isConverting}
+                  onClick={handleFileInputClick}
                 >
                   <FileUp className="w-4 h-4 mr-2" />
                   选择文件
